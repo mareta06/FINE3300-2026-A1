@@ -1,61 +1,273 @@
-# FINE3300-2026-A1
-Python USD/CAD currency exchange calculator for FINE 3300 Assignment #1
+# FINE 3300 Assignment 1: USD/CAD Exchange Rate Calculator
 
-**Project Overview**
-This project uses Python to develop a USD/CAD exchange rate calculator that converts monetary amounts between USD and CAD. The program extracts the exchange rate from the Bank of Canada's exchange rate data.
+## Overview
 
-The ExchangeRates.py program was developed independently, without the use of AI, using knowledge gained from course materials. This includes creating a class and implementing methods and attributes to initialize the exchange rate data and perform currency conversions with the appropriate calculations. In contrast, the ExchangeRatesAI.py program was generated using artificial intelligence through a process known as vibe coding. The project's purpose is to compare the two programs, which perform the same overall function but may differ in their code structure, implementation, and programming style.
+This project was developed using the programming language Python for FINE 3300 Assignment 1. The purpose of this project is to create a USD/CAD exchange rate calculator that converts monetary amounts from USD to CAD and vice versa.
 
-**Project Objectives**
+The exchange rate used in the program is extracted from the exchange rate data provided by the Bank of Canada in a CSV file. The program reads this data and uses the exchange rate to calculate conversions based on the amount and currencies entered by the user.
+
+The `ExchangeRates.py` program was developed independently, without the use of AI, using knowledge gained from course materials. This includes creating a class and implementing methods and attributes to retrieve the exchange rate and perform currency conversions. In contrast, the `ExchangeRatesAI.py` program was generated using artificial intelligence through a process known as *vibe coding*. The purpose of this project is to compare the two programs, which perform the same overall function but differ in their code structure, implementation, and programming style.
+
+## Project Objectives
+
 The main objectives of this project are to:
-    - Read exchange rate data from a CSV file
-    - Create a Class called ExchangeRates
-    - Retrieve the relevant USD/CAD exchange rate
-    - Convert amounts between USD and CAD 
-    - Collect user input using Python's input() function
-    - Display conversion results with currency identifiers and two decimal places
-    - Compare an independently developed program with an AI-generated implementation
 
-**Project Files**
-*File*                                  *Description*
-ExchangeRates.py	                       Contains the original implementation of the exchange rate calculator
-ExchangeRatesAI.py	                     Contains the AI-generated implementation of the exchange rate calculator
-BankOfCanadaExchangeRates.2026.csv	     Contains the exchange rate data provided for the assignment
-README.md	                               Provides an overview of the project and instructions for running the programs
+- Create a Python class named `ExchangeRates`
+- Read exchange rate data from a CSV file
+- Retrieve the latest available USD/CAD exchange rate
+- Convert monetary amounts between USD and CAD
+- Collect user input using Python's `input()` function
+- Display conversion results to two decimal places
+- Compare an independently developed program with an AI-generated implementation
 
-**Requirements**
+## Project Files
+
+| File | Description |
+|---|---|
+| `ExchangeRates(4).py` | Original implementation of the exchange rate calculator. |
+| `ExchangeratesAI.py` | AI-generated implementation of the exchange rate calculator. |
+| `BankOfCanadaExchangeRate.2026.csv` | Bank of Canada exchange rate data used by the programs. |
+| `README.md` | Project overview, code explanations, program outputs, and comparison. |
+
+---
+
+# Part 1: Original Exchange Rate Calculator
+
+## The ExchangeRates Class
+
+I created a class named `ExchangeRates` to organize the exchange rate calculator. The class reads the Bank of Canada CSV file and retrieves the most recent USD/CAD exchange rate from the final row of the file.
+
+The class contains two main methods: `__init__()` and `convert()`. The `__init__()` method loads the exchange rate data, while the `convert()` method calculates the converted amount based on the currencies selected by the user.
+
+## The __init__ Method
+
+The `__init__()` method initializes the `ExchangeRates` object by opening the CSV file and reading its contents.
+
+The program uses Python's `csv.DictReader` to read the file and `list()` to store its rows in a list. It then retrieves the exchange rate from the `FXAUSDCAD` column in the final row and converts the value to a floating-point number using `float()`.
+
+The exchange rate is stored in the object's `exchange_rate` attribute so that it can be accessed by the `convert()` method.
+
+The relevant code is:
+
+```python
+def __init__(self, filename):
+
+    with open(filename, "r") as file:
+        reader = csv.DictReader(file)
+
+        rows = list(reader)
+
+        self.exchange_rate = float(rows[-1]["FXAUSDCAD"])
+```
+
+## The convert Method
+
+The `convert()` method takes three parameters: `amount`, `original_currency`, and `target_currency`. These represent the monetary amount, the currency being converted, and the currency the user wants to receive.
+
+The method checks which currencies the user selected and performs the appropriate calculation.
+
+| Conversion | Calculation |
+|---|---|
+| USD to CAD | Multiply the amount by the exchange rate. |
+| CAD to USD | Divide the amount by the exchange rate. |
+
+If the user enters a currency combination that is not supported, the program raises a `ValueError` indicating that the conversion is invalid.
+
+The relevant code is:
+
+```python
+def convert(self, amount, original_currency, target_currency):
+    if original_currency == "USD" and target_currency == "CAD":
+        return amount * self.exchange_rate
+    elif original_currency == "CAD" and target_currency == "USD":
+        return amount / self.exchange_rate
+    else:
+        raise ValueError("Invalid currency conversion. Please use USD or CAD.")
+```
+
+## User Input
+
+After defining the class, I created an object named `a` using the `ExchangeRates` class and loaded the exchange rate from the CSV file.
+
+The program then displays an introduction and the current USD/CAD exchange rate. Using Python's `input()` function, the user is prompted to enter the amount they want to convert, the original currency, and the target currency.
+
+These inputs are passed to the `convert()` method, which calculates the converted amount. The result is displayed using an f-string with two decimal places.
+
+## Part 1: Program Output
+
+The following outputs were generated by my original Python implementation using an exchange rate of 1 USD = 1.3978 CAD.
+
+### Example 1: USD to CAD
+
+**Input:**
+- Amount: $100,000
+- Original currency: USD
+- Target currency: CAD
+
+**Output:**
+
+```text
+Welcome to the USD/CAD Currency Exchange Calculator! The current exchange rate for USD to CAD is: 1.3978
+Please enter the following information:
+
+What is the amount of money you would like to convert?: $100000
+What is the original currency? (Enter USD or CAD): USD
+What is the target currency? (Enter USD or CAD): CAD
+
+This is your converted amount: $139780.00 CAD
+```
+
+### Example 2: CAD to USD
+
+**Input:**
+- Amount: $100,000
+- Original currency: CAD
+- Target currency: USD
+
+**Output:**
+
+```text
+Welcome to the USD/CAD Currency Exchange Calculator! The current exchange rate for USD to CAD is: 1.3978
+Please enter the following information:
+
+What is the amount of money you would like to convert?: $100000
+What is the original currency? (Enter USD or CAD): CAD
+What is the target currency? (Enter USD or CAD): USD
+
+This is your converted amount: $71540.99 USD
+```
+
+---
+
+# Part 2: AI-Generated Exchange Rate Calculator
+
+## The AI Model Used
+
+For Part 2 of the assignment, I used Claude Opus 5.5 (Anthropic) to generate a separate implementation of the exchange rate calculator.
+
+I wanted to explore how an AI model would approach the same programming task compared with my own entry-level programming knowledge and the concepts learned in class. Although both programs perform the same currency conversions, they use different approaches to organizing and implementing the code.
+
+## The Initial Prompt
+
+After providing the assignment description and CSV file, I used the following prompt:
+
+> Using all of this information from my assignment please create an exchange rate calculator that specifically only exchanges amounts from CAD to USD or vice versa. Following the instructions from my professor please make sure you incorporate a user interactivity component so that the amount and currencies used for the conversion come from the users responses. Make sure that all of the amounts are rounded to 2 decimal places and that the program references the CSV file I have uploaded. If you require further context or explanation let me know.
+
+## Follow-Up Prompt
+
+The first version of the AI-generated code worked, but it did not allow me to enter commas in the monetary amount. I therefore submitted the following follow-up prompt:
+
+> The code you have provided me is good, however it does not let me input commas places for the amount, can you change that?
+
+## The AI-Generated ExchangeRates Class
+
+The AI-generated program also uses a class named `ExchangeRates` to organize the exchange rate calculator.
+
+Like my original implementation, it reads the CSV file using `csv.DictReader` and retrieves the exchange rate from the `FXAUSDCAD` column in the final row.
+
+However, the AI-generated implementation uses a different approach to reading the file. It opens the CSV file with UTF-8 encoding, loops through the rows to retain the final row, and raises a `ValueError` if the file contains no data. The exchange rate is then stored in the object's `exchange_rate` attribute.
+
+## The AI-Generated convert Method
+
+The AI-generated `convert()` method also accepts an amount, an original currency, and a target currency.
+
+However, it first converts the currency inputs to uppercase using `upper()`. This allows the method to accept lowercase currency codes when it is called directly.
+
+The method then checks whether the user wants to convert USD to CAD, CAD to USD, or between the same supported currency. If the currency combination is not supported, it raises a `ValueError`.
+
+Unlike my original implementation, the AI-generated method returns the amount when the original and target currencies are the same.
+
+## User Input and Output
+
+The AI-generated program asks the user to enter the amount, original currency, and target currency. It then passes these inputs to the `convert()` method.
+
+The AI-generated version also displays the exchange rate to four decimal places and the converted amount to two decimal places.
+
+The follow-up prompt was used to address the original issue with entering commas in the amount. However, the uploaded version of the code currently uses `float(input(...))`, which does not accept a number formatted with commas, such as `100,000`. The program therefore needs to be updated if comma-separated input is expected.
+
+## Part 2: Program Output
+
+The following outputs were generated by the AI exchange rate calculator using an exchange rate of 1 USD = 1.3978 CAD.
+
+### Example 1: CAD to USD
+
+**Input:**
+- Amount: $100,000
+- Original currency: CAD
+- Target currency: USD
+
+**Output:**
+
+```text
+Enter the amount to convert: 100000
+Enter the original currency (USD or CAD): CAD
+Enter the target currency (USD or CAD): USD
+Current exchange rate (USD to CAD): 1.3978
+Converted amount: $71540.99 USD
+```
+
+### Example 2: USD to CAD
+
+**Input:**
+- Amount: $100,000
+- Original currency: USD
+- Target currency: CAD
+
+**Output:**
+
+```text
+Enter the amount to convert: 100000
+Enter the original currency (USD or CAD): USD
+Enter the target currency (USD or CAD): CAD
+Current exchange rate (USD to CAD): 1.3978
+Converted amount: $139780.00 CAD
+```
+
+---
+
+# Comparison of Part 1 and Part 2
+
+[Write your comparison paragraph here.]
+
+---
+
+# How to Run the Programs
+
+## Requirements
+
 To run the programs, you need:
-    - Python installed on your computer
-    - The project files, including the exchange rate CSV file
-    - A Python development environment (e.x., Visual Studio Code)
 
-**How to Run**
-The steps to run the code are:
-    1) Download or clone this repository to your computer
-    2) Ensure the Python files and the exchange rate CSV file are in the appropriate locations
-    3) Open the project folder in Visual Studio Code
-    4) Open the terminal in Visual Studio Code
-    5) Run the original implementation:
-          *python ExchangeRates.py*  
-       To run the AI-generated implementation, use:
-          *python ExchangeRatesAI.py*
-    6) Follow the prompts to enter the amount, source currency, and destination currency
+- Python installed on your computer.
+- The Python files and the Bank of Canada CSV file.
+- A Python development environment, such as Visual Studio Code.
 
-**Technologies Used**
-Technologies used for the project:
-  - Python
-  - Visual Studio Code
-  - Git
-  - GitHub
-  - CSV data
-  - Copilot
+## Running the Original Program
 
-**AI-Assisted Development**
-The AI-assisted component of this project involves using a large language model (LLM) to generate a separate implementation of the exchange rate calculator. For this part, I chose Microsoft Copilot, a coding assistant powered by artificial intelligence, to explore how an AI model would approach the same programming task. I wanted to compare Copilot's approach to developing the exchange rate calculator with my own entry-level programming knowledge and the concepts learned in class.
+1. Download or clone this repository.
+2. Open the project folder in Visual Studio Code.
+3. Open the terminal.
+4. Run the original Python file using its actual filename:
 
-*The AI model used, the prompts submitted, and the comparison between the two implementations are documented in this assignment's written report.*
+   `python "ExchangeRates(4).py"`
 
-**Conclusion**
-In conclusion, this project demonstrates the use of Python concepts learned during the first four lectures of FINE 3300 to develop a USD/CAD exchange rate calculator. By creating a class and implementing its methods and attributes, the program can read the exchange rate data from the CSV file, perform currency conversions, and collect user input. 
+5. Enter the amount, original currency, and target currency when prompted.
+
+## Running the AI-Generated Program
+
+1. Open the project folder in Visual Studio Code.
+2. Open the terminal.
+3. Run:
+
+   `python ExchangeratesAI.py`
+
+4. Enter the amount, original currency, and target currency when prompted.
+
+Make sure the CSV file is located in the directory expected by the programs.
+
+---
+
+# Conclusion
+
+In conclusion, this project demonstrates the application of Python concepts learned during the first four lectures of FINE 3300 to develop a USD/CAD exchange rate calculator. By creating a class and implementing its methods and attributes, the program can read exchange rate data, perform currency conversions, and collect user input.
 
 Additionally, this project provides an opportunity to explore AI-assisted programming by comparing an independently developed solution with one generated by an AI model. Through this comparison, the project highlights how different programming approaches can achieve the same objective while varying in code structure, implementation, and style.
