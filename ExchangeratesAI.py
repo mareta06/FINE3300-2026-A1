@@ -37,7 +37,7 @@ class ExchangeRates:
 filename = "BankOfCanadaExchangeRate.2026.csv"
 exchange_rates = ExchangeRates(filename)
 
-amount_text = input("Enter the amount to convert: ").strip()
+amount_text = input("Enter the amount to convert: $").strip()
 if re.fullmatch(r"[+-]?\$?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d*)?", amount_text) is None:
     raise ValueError("Enter an amount with optional dollar sign and correctly grouped commas.")
 amount = float(amount_text.replace("$", "").replace(",", ""))
