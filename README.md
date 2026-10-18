@@ -151,13 +151,7 @@ I wanted to explore how an AI model would approach the same programming task com
 
 After providing the assignment description and CSV file, I used the following prompt:
 
-> Create a class called ExchangeRates that takes a CSV filename as an argument. The CSV file contains exchange-rate data from the Bank of Canada. Use Python's built-in csv module and csv.DictReader to read the file. The last row contains the latest exchange rate, and the column of interest is FXAUSDCAD.
-
->The class should have a method called convert that accepts three arguments: an amount, an original currency, and a target currency. If the original currency is USD and the target currency is CAD, multiply the amount by the exchange rate. If the original currency is CAD and the target currency is USD, divide the amount by the exchange rate.
-
->The program should prompt the user to enter the amount they want to convert, the original currency, and the target currency using the input() function.
-
->Display the current exchange rate and the converted amount. Format the converted amount to two decimal places and include a dollar sign and the target currency identifier. Use the CSV file attached and include comments explaining the main sections of the program.
+> Create a class called ExchangeRates that takes a CSV filename as an argument. The CSV file contains exchange-rate data from the Bank of Canada. Use Python's built-in csv module and csv.DictReader to read the file. The last row contains the latest exchange rate, and the column of interest is FXAUSDCAD. The class should have a method called convert that accepts three arguments: an amount, an original currency, and a target currency. If the original currency is USD and the target currency is CAD, multiply the amount by the exchange rate. If the original currency is CAD and the target currency is USD, divide the amount by the exchange rate. The program should prompt the user to enter the amount they want to convert, the original currency, and the target currency using the input() function. Display the current exchange rate and the converted amount. Format the converted amount to two decimal places and include a dollar sign and the target currency identifier. Use the CSV file attached and include comments explaining the main sections of the program.
 
 ## Follow-Up Prompt
 
