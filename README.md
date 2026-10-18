@@ -25,7 +25,7 @@ The main objectives of this project are to:
 | File | Description |
 |---|---|
 | `ExchangeRates.py` | Original implementation of the exchange rate calculator. |
-| `ExchangeratesAI.py` | AI-generated implementation of the exchange rate calculator. |
+| `ExchangeRatesAI.py` | AI-generated implementation of the exchange rate calculator. |
 | `BankOfCanadaExchangeRate.2026.csv` | Bank of Canada exchange rate data used by the programs. |
 | `README.md` | Project overview, code explanations, program outputs, and comparison. |
 
@@ -234,7 +234,7 @@ To run the programs, you need:
 2. Open the terminal.
 3. Run:
 
-   `python ExchangeratesAI.py`
+   `python ExchangeRatesAI.py`
 
 4. Enter the amount, original currency, and target currency when prompted.
 
