@@ -224,7 +224,7 @@ To run the programs, you need:
 3. Open the terminal.
 4. Run the original Python file using its actual filename:
 
-   `python "ExchangeRates(4).py"`
+   `python "ExchangeRates.py"`
 
 5. Enter the amount, original currency, and target currency when prompted.
 
